@@ -4,12 +4,21 @@
 (function() {
 
 /* FIX: Move orphaned phase-content cards into .brain-phases scroll container */
-(function() {
+/* Uses retry loop because dynamically-loaded script may execute before all embeds are parsed */
+(function fixBrainPhases(attempt) {
+  attempt = attempt || 0;
   const brainPhases = document.querySelector('.brain-phases');
   if (!brainPhases) return;
 
   // Gather all .phase-content elements that are NOT inside .brain-phases
   const allPhases = document.querySelectorAll('.phase-content');
+
+  // If we don't see all 3 phases yet and haven't exceeded retries, wait and try again
+  if (allPhases.length < 3 && attempt < 20) {
+    setTimeout(function() { fixBrainPhases(attempt + 1); }, 100);
+    return;
+  }
+
   allPhases.forEach(pc => {
     if (!brainPhases.contains(pc)) {
       brainPhases.appendChild(pc);
