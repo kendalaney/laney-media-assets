@@ -1306,10 +1306,10 @@ footer {
   flex-direction: column !important;
   align-items: center !important;
   grid-template-columns: unset !important;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  gap: 60px;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  gap: 60px !important;
 }
 
 /* Brain visual — make it larger and prominent */
