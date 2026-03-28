@@ -56,25 +56,56 @@
     brainPhases.scrollLeft = scrollLeft - (x - startX) * 1.5;
   });
 
-  // Update active phase + indicator on scroll
+  // Update active phase + all connected highlights on scroll
   function updateActivePhase() {
-    const cards = brainPhases.querySelectorAll('.phase-content');
-    const containerCenter = brainPhases.scrollLeft + brainPhases.clientWidth / 2;
-    let closestIdx = 0, closestDist = Infinity;
-    cards.forEach((card, i) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const dist = Math.abs(containerCenter - cardCenter);
+    var cards = brainPhases.querySelectorAll('.phase-content');
+    var containerCenter = brainPhases.scrollLeft + brainPhases.clientWidth / 2;
+    var closestIdx = 0, closestDist = Infinity;
+    cards.forEach(function(card, i) {
+      var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      var dist = Math.abs(containerCenter - cardCenter);
       if (dist < closestDist) { closestDist = dist; closestIdx = i; }
     });
-    cards.forEach((c, i) => c.classList.toggle('active', i === closestIdx));
 
-    // Update phase indicator pips
-    const pips = document.querySelectorAll('.phase-pip');
-    pips.forEach((pip, i) => {
-      pip.style.background = i === closestIdx ? 'var(--cognac)' : 'var(--heritage)';
+    // Get the active phase name from data attribute
+    var activeCard = cards[closestIdx];
+    var activePhaseName = activeCard ? activeCard.getAttribute('data-phase') : '';
+
+    // 1. Toggle active class on phase cards
+    cards.forEach(function(c, i) { c.classList.toggle('active', i === closestIdx); });
+
+    // 2. Update phase indicator pips (.phase-pip.active)
+    document.querySelectorAll('.phase-pip').forEach(function(pip) {
+      var isPrimal = pip.classList.contains('pip-primal');
+      var isEmotional = pip.classList.contains('pip-emotional');
+      var isRational = pip.classList.contains('pip-rational');
+      var shouldBeActive = false;
+      // Progressive: primal lights for all, emotional lights for emotional+rational, rational only for rational
+      if (activePhaseName === 'primal') shouldBeActive = isPrimal;
+      else if (activePhaseName === 'emotional') shouldBeActive = isPrimal || isEmotional;
+      else if (activePhaseName === 'rational') shouldBeActive = isPrimal || isEmotional || isRational;
+      pip.classList.toggle('active', shouldBeActive);
     });
+
+    // 3. Update CONVERTS strip letters (.cs-letter.lit)
+    document.querySelectorAll('.cs-letter').forEach(function(letter) {
+      var shouldLight = false;
+      if (activePhaseName === 'primal') shouldLight = letter.classList.contains('primal');
+      else if (activePhaseName === 'emotional') shouldLight = letter.classList.contains('primal') || letter.classList.contains('emotional');
+      else if (activePhaseName === 'rational') shouldLight = true; // all lit for rational (final phase)
+      letter.classList.toggle('lit', shouldLight);
+    });
+
+    // 4. Update brain SVG phase class
+    var brainSvg = document.querySelector('.brain-svg');
+    if (brainSvg && activePhaseName) {
+      brainSvg.classList.remove('phase-primal', 'phase-emotional', 'phase-rational');
+      brainSvg.classList.add('phase-' + activePhaseName);
+    }
   }
   brainPhases.addEventListener('scroll', updateActivePhase);
+  // Run once immediately to set initial state
+  updateActivePhase();
 
   // Phase indicator click navigation
   document.querySelectorAll('.phase-pip').forEach((pip, i) => {
