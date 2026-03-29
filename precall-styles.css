@@ -1300,6 +1300,11 @@ footer {
 /* These override inline embed CSS              */
 /* ============================================ */
 
+/* Reduce gap between CONVERTS strip and brain section */
+.converts-section {
+  padding-bottom: 20px !important;
+}
+
 /* Brain Scanner — cards first, brain below-left */
 .brain-scanner {
   display: flex !important;
@@ -1307,7 +1312,7 @@ footer {
   align-items: flex-start !important;
   grid-template-columns: unset !important;
   max-width: 1400px !important;
-  margin: 0 auto !important;
+  margin: -100px auto 0 !important;
   padding: 0 24px !important;
   gap: 32px !important;
 }
