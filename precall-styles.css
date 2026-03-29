@@ -1300,24 +1300,26 @@ footer {
 /* These override inline embed CSS              */
 /* ============================================ */
 
-/* Brain Scanner — stack vertically, center brain */
+/* Brain Scanner — cards first, brain below-left */
 .brain-scanner {
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   grid-template-columns: unset !important;
-  max-width: 1100px !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
   padding: 0 24px !important;
-  gap: 60px !important;
+  gap: 32px !important;
 }
 
-/* Brain visual — make it larger and prominent */
+/* Brain visual — small, left-aligned, below the cards */
 .brain-visual-container {
-  width: 480px !important;
+  order: 2 !important;
+  width: 240px !important;
   height: auto !important;
-  padding: 32px !important;
+  padding: 0 !important;
   flex-shrink: 0;
+  align-self: flex-start !important;
 }
 
 .brain-svg {
@@ -1325,19 +1327,20 @@ footer {
   height: auto !important;
 }
 
-/* Phase indicator pips */
+/* Phase indicator pips — left-aligned under brain */
 .phase-indicator {
   display: flex;
   gap: 24px;
-  margin-top: 24px;
+  margin-top: 12px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* Brain phases wrapper — full width, scrollable */
 .brain-phases-wrapper {
-  width: 100%;
-  max-width: 1000px;
+  order: 1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
   position: relative;
   overflow: hidden;
 }
@@ -1354,7 +1357,7 @@ footer {
 }
 .brain-phases::-webkit-scrollbar { display: none; }
 
-/* Phase content cards */
+/* Phase content cards — full width */
 .phase-content {
   min-width: calc(100% - 80px);
   max-width: calc(100% - 80px);
@@ -1400,7 +1403,7 @@ footer {
   color: var(--paper);
   line-height: 1.8;
   margin-bottom: 28px;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 /* Trigger cards within phases */
