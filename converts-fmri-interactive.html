@@ -502,14 +502,17 @@
       </div>
     </div>
   </div>
+
   <script>
     const letterToPhase = {
       'C': 'primal', 'V': 'primal',
       'N': 'emotional', 'E': 'emotional', 'T': 'emotional', 'S': 'emotional',
       'R': 'rational', 'O': 'rational'
     };
+
     let currentPhase = null;
     let highlightedLetter = null;
+
     function activateLetter(letter) {
       const phase = letterToPhase[letter];
       
@@ -522,6 +525,12 @@
       
       activatePhase(phase, letter);
     }
+
+    // Auto-open primal phase on load
+    document.addEventListener('DOMContentLoaded', function() {
+      activatePhase('primal');
+    });
+
     function activatePhase(phase, fromLetter) {
       const phases = ['primal', 'emotional', 'rational'];
       
