@@ -10,7 +10,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     :root {
       --lm-bg: #0a0a0a;
       --lm-bg-card: #1a1816;
@@ -20,129 +20,116 @@
       --lm-text-muted: #9A9490;
       --lm-border: rgba(184, 115, 51, 0.25);
     }
-    
+
     body {
       background: var(--lm-bg);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       color: var(--lm-cream);
       min-height: 100vh;
     }
-    
+
+    /* ============================================================
+       BASE (Mobile-first: < 480px)
+       ============================================================ */
     .fmri-wrapper {
       background: var(--lm-bg);
-      padding: 32px 24px;
+      padding: 20px 16px;
       max-width: 1000px;
       margin: 0 auto;
     }
-    
+
     .converts-bar {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
+      gap: 2px;
+      margin-bottom: 20px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
     }
-    
+
     .letter-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: transparent;
       border: none;
       cursor: pointer;
-      padding: 8px 12px;
+      padding: 6px 6px;
       transition: all 0.3s;
-      min-width: 70px;
+      min-width: 40px;
+      flex-shrink: 0;
     }
     .letter-btn:hover .letter { color: var(--lm-cream); }
     .letter-btn:hover .letter-label { color: var(--lm-text-muted); }
-    
+
     .letter {
-      font-size: 32px;
+      font-size: 22px;
       font-weight: 300;
       color: #444;
       transition: all 0.3s;
+      line-height: 1;
     }
     .letter-label {
-      font-size: 8px;
+      font-size: 7px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: #333;
       transition: all 0.3s;
+      white-space: nowrap;
     }
     .letter-line {
       width: 100%;
       height: 2px;
       background: transparent;
-      margin-top: 4px;
+      margin-top: 2px;
       transition: all 0.3s;
     }
-    
+
     .letter-btn.active .letter { color: var(--lm-copper-light); }
     .letter-btn.active .letter-label { color: var(--lm-text-muted); }
     .letter-btn.active .letter-line { background: var(--lm-copper); }
-    
+
     .letter-btn.phase-primal.active .letter { color: #E87055; }
     .letter-btn.phase-primal.active .letter-line { background: #C45C3E; }
     .letter-btn.phase-emotional.active .letter { color: var(--lm-copper-light); }
     .letter-btn.phase-emotional.active .letter-line { background: var(--lm-copper); }
     .letter-btn.phase-rational.active .letter { color: #A8B89A; }
     .letter-btn.phase-rational.active .letter-line { background: #8B9A7D; }
-    
+
     .main-content {
       display: flex;
-      gap: 32px;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
       margin-bottom: 24px;
     }
-    
-    @media (max-width: 768px) {
-      .main-content {
-        flex-direction: column;
-        align-items: center;
-      }
-      .brain-container {
-        width: 100% !important;
-        max-width: 300px !important;
-      }
-      .phases-accordion {
-        flex-direction: column !important;
-        width: 100%;
-      }
-      .phase-panel.collapsed {
-        width: 100% !important;
-        min-width: unset !important;
-      }
-      .phase-panel.collapsed .phase-tab {
-        writing-mode: horizontal-tb !important;
-        text-orientation: mixed;
-        padding: 12px 16px !important;
-        flex-direction: row !important;
-      }
-    }
-    
+
     .brain-container {
       flex-shrink: 0;
-      width: 280px;
+      width: 100%;
+      max-width: 240px;
     }
-    
-    .scan-label { 
-      font-size: 9px; 
-      text-transform: uppercase; 
-      letter-spacing: 0.12em; 
-      color: #444; 
+
+    .scan-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #444;
       margin-bottom: 8px;
       text-align: center;
     }
-    
+
     .phases-accordion {
-      flex: 1;
+      width: 100%;
       display: flex;
+      flex-direction: column;
       gap: 8px;
-      min-height: 320px;
+      min-height: unset;
     }
-    
+
     .phase-panel {
       background: var(--lm-bg-card);
       border: 1px solid var(--lm-border);
@@ -153,31 +140,33 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .phase-panel.collapsed {
-      width: 48px;
-      min-width: 48px;
+      width: 100%;
+      min-width: unset;
     }
-    
+
     .phase-panel.expanded {
-      flex: 1;
-      min-width: 280px;
+      width: 100%;
+      min-width: unset;
     }
-    
+
+    /* Mobile: tabs are horizontal rows */
     .phase-tab {
-      writing-mode: vertical-rl;
+      writing-mode: horizontal-tb;
       text-orientation: mixed;
-      padding: 16px 12px;
+      padding: 12px 16px;
       display: flex;
+      flex-direction: row;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       transition: all 0.3s;
     }
-    
+
     .phase-panel.expanded .phase-tab {
       display: none;
     }
-    
+
     .tab-num {
       font-size: 10px;
       color: #444;
@@ -188,67 +177,221 @@
       color: var(--lm-text-muted);
       letter-spacing: 0.05em;
     }
-    
+
     .phase-panel:hover .tab-name { color: var(--lm-cream); }
-    
+
     .phase-content {
       display: none;
-      padding: 20px;
+      padding: 16px;
       flex: 1;
       overflow-y: auto;
     }
-    
+
     .phase-panel.expanded .phase-content {
       display: block;
     }
-    
+
     .phase-header {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .phase-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: #555; margin-bottom: 6px; }
-    .phase-name { font-size: 18px; font-weight: 400; color: var(--lm-cream); margin-bottom: 4px; }
+    .phase-name { font-size: 17px; font-weight: 400; color: var(--lm-cream); margin-bottom: 4px; }
     .phase-question { font-size: 13px; font-style: italic; color: var(--lm-text-muted); }
-    
+
     .triggers-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
-    
+
     .trigger-item {
       background: rgba(0,0,0,0.25);
       border-radius: 6px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: flex-start;
       transition: background 0.3s;
     }
-    
+
     .trigger-letter {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 300;
       color: var(--lm-copper-light);
       line-height: 1;
     }
-    .trigger-text { flex: 1; }
+    .trigger-text { flex: 1; min-width: 0; }
     .trigger-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--lm-cream); margin-bottom: 4px; }
-    .trigger-desc { font-size: 11px; line-height: 1.5; color: var(--lm-text-muted); }
-    
+    .trigger-desc { font-size: 12px; line-height: 1.5; color: var(--lm-text-muted); }
+
     .phase-primal .trigger-letter { color: #E87055; }
     .phase-rational .trigger-letter { color: #A8B89A; }
-    
+
     .brain-region { cursor: pointer; transition: opacity 0.4s; }
     .brain-region.dim { opacity: 0.2; }
-    
+
     .activation-zone { transition: opacity 0.5s ease; opacity: 0; }
     .activation-zone.visible { opacity: 1; }
-    
+
     @keyframes fmri-pulse {
       0%, 100% { opacity: 0.7; }
       50% { opacity: 1; }
     }
     .activation-zone.active { animation: fmri-pulse 1.8s ease-in-out infinite; }
+
+    /* ============================================================
+       LARGE MOBILE (>= 480px)
+       ============================================================ */
+    @media (min-width: 480px) {
+      .fmri-wrapper {
+        padding: 24px 20px;
+      }
+      .converts-bar {
+        gap: 4px;
+        overflow-x: visible;
+        flex-wrap: wrap;
+      }
+      .letter-btn {
+        min-width: 56px;
+        padding: 8px 10px;
+        gap: 5px;
+      }
+      .letter {
+        font-size: 26px;
+      }
+      .letter-label {
+        font-size: 8px;
+      }
+      .brain-container {
+        max-width: 260px;
+      }
+    }
+
+    /* ============================================================
+       TABLET (>= 768px)
+       ============================================================ */
+    @media (min-width: 768px) {
+      .fmri-wrapper {
+        padding: 28px 24px;
+      }
+      .converts-bar {
+        gap: 6px;
+        margin-bottom: 28px;
+      }
+      .letter-btn {
+        min-width: 64px;
+        padding: 8px 12px;
+        gap: 6px;
+      }
+      .letter {
+        font-size: 30px;
+      }
+      .letter-label {
+        font-size: 8px;
+      }
+
+      /* Side-by-side brain + phases on tablet, but tighter */
+      .main-content {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .brain-container {
+        width: 240px;
+        max-width: 240px;
+      }
+
+      .phases-accordion {
+        flex: 1;
+        flex-direction: row;
+        gap: 6px;
+        min-height: 320px;
+      }
+
+      .phase-panel.collapsed {
+        width: 44px;
+        min-width: 44px;
+      }
+
+      .phase-panel.expanded {
+        flex: 1;
+        min-width: 240px;
+        width: auto;
+      }
+
+      /* Tablet: tabs go vertical when collapsed */
+      .phase-tab {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        padding: 14px 10px;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .phase-content {
+        padding: 18px;
+      }
+      .phase-name { font-size: 18px; }
+    }
+
+    /* ============================================================
+       DESKTOP (>= 1024px)
+       ============================================================ */
+    @media (min-width: 1024px) {
+      .fmri-wrapper {
+        padding: 32px 24px;
+      }
+      .converts-bar {
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+      .letter-btn {
+        min-width: 70px;
+        padding: 8px 12px;
+        gap: 6px;
+      }
+      .letter {
+        font-size: 32px;
+      }
+
+      .main-content {
+        gap: 32px;
+      }
+
+      .brain-container {
+        width: 280px;
+        max-width: 280px;
+      }
+
+      .phases-accordion {
+        gap: 8px;
+      }
+
+      .phase-panel.collapsed {
+        width: 48px;
+        min-width: 48px;
+      }
+
+      .phase-panel.expanded {
+        min-width: 280px;
+      }
+
+      .phase-tab {
+        padding: 16px 12px;
+      }
+
+      .phase-content {
+        padding: 20px;
+      }
+
+      .trigger-item {
+        padding: 12px 14px;
+        gap: 12px;
+      }
+      .trigger-letter { font-size: 22px; }
+      .trigger-desc { font-size: 11px; }
+    }
   </style>
 </head>
 <body>
@@ -295,7 +438,7 @@
         <span class="letter-line"></span>
       </button>
     </div>
-    
+
     <div class="main-content">
       <div class="brain-container">
         <div class="scan-label">Sagittal fMRI</div>
@@ -324,32 +467,32 @@
               <feGaussianBlur stdDeviation="5"/>
             </filter>
             <clipPath id="brain-clip">
-              <path d="M140,250 
-                       C80,250 40,220 32,175 
-                       C24,130 28,85 50,55 
-                       C72,25 110,12 145,12 
-                       C180,12 218,25 240,55 
-                       C262,85 266,130 258,175 
+              <path d="M140,250
+                       C80,250 40,220 32,175
+                       C24,130 28,85 50,55
+                       C72,25 110,12 145,12
+                       C180,12 218,25 240,55
+                       C262,85 266,130 258,175
                        C250,220 210,250 140,250 Z"/>
             </clipPath>
           </defs>
-          
+
           <rect x="0" y="0" width="280" height="280" fill="#0a0a0a"/>
-          
+
           <g clip-path="url(#brain-clip)">
             <path d="M140,250 C80,250 40,220 32,175 C24,130 28,85 50,55 C72,25 110,12 145,12 C180,12 218,25 240,55 C262,85 266,130 258,175 C250,220 210,250 140,250 Z" fill="#151515"/>
-            
+
             <path d="M65,58 Q90,42 125,38 Q160,35 195,42 Q230,50 250,65" fill="none" stroke="#222" stroke-width="10" stroke-linecap="round"/>
             <path d="M52,88 Q80,72 120,68 Q160,64 200,70 Q240,78 260,95" fill="none" stroke="#1e1e1e" stroke-width="8" stroke-linecap="round"/>
             <path d="M42,120 Q72,105 115,100 Q158,96 200,102 Q242,110 268,130" fill="none" stroke="#1a1a1a" stroke-width="7" stroke-linecap="round"/>
-            
+
             <ellipse cx="140" cy="70" rx="68" ry="38" fill="#181818" opacity="0.9"/>
             <ellipse cx="140" cy="130" rx="48" ry="30" fill="#161616" opacity="0.9"/>
             <ellipse cx="140" cy="185" rx="30" ry="22" fill="#141414" opacity="0.9"/>
           </g>
-          
+
           <path d="M140,250 C80,250 40,220 32,175 C24,130 28,85 50,55 C72,25 110,12 145,12 C180,12 218,25 240,55 C262,85 266,130 258,175 C250,220 210,250 140,250 Z" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>
-          
+
           <g class="brain-region" id="rational-region" onclick="activatePhase('rational')">
             <ellipse cx="140" cy="65" rx="65" ry="36" fill="transparent"/>
           </g>
@@ -359,27 +502,27 @@
           <g class="brain-region" id="primal-region" onclick="activatePhase('primal')">
             <ellipse cx="140" cy="182" rx="28" ry="20" fill="transparent"/>
           </g>
-          
+
           <g id="rational-activation" class="activation-zone">
             <ellipse cx="105" cy="55" rx="22" ry="16" fill="url(#hot-center)" filter="url(#blur-med)"/>
             <ellipse cx="175" cy="60" rx="20" ry="14" fill="url(#warm-glow)" filter="url(#blur-med)"/>
             <ellipse cx="140" cy="48" rx="15" ry="10" fill="url(#mild-activity)" filter="url(#blur-soft)"/>
             <ellipse cx="125" cy="78" rx="12" ry="8" fill="url(#warm-glow)" filter="url(#blur-soft)"/>
           </g>
-          
+
           <g id="emotional-activation" class="activation-zone">
             <ellipse cx="140" cy="125" rx="26" ry="20" fill="url(#hot-center)" filter="url(#blur-med)"/>
             <ellipse cx="110" cy="135" rx="18" ry="14" fill="url(#warm-glow)" filter="url(#blur-med)"/>
             <ellipse cx="170" cy="130" rx="16" ry="12" fill="url(#warm-glow)" filter="url(#blur-soft)"/>
             <ellipse cx="140" cy="148" rx="18" ry="10" fill="url(#mild-activity)" filter="url(#blur-soft)"/>
           </g>
-          
+
           <g id="primal-activation" class="activation-zone">
             <ellipse cx="140" cy="180" rx="24" ry="18" fill="url(#hot-center)" filter="url(#blur-med)"/>
             <ellipse cx="125" cy="192" rx="14" ry="10" fill="url(#warm-glow)" filter="url(#blur-soft)"/>
             <ellipse cx="155" cy="190" rx="12" ry="9" fill="url(#warm-glow)" filter="url(#blur-soft)"/>
           </g>
-          
+
           <g transform="translate(12, 50)">
             <rect x="0" y="0" width="10" height="100" rx="2" fill="url(#scale-gradient)"/>
             <defs>
@@ -394,7 +537,7 @@
           </g>
         </svg>
       </div>
-      
+
       <div class="phases-accordion">
         <div class="phase-panel phase-primal collapsed" id="panel-primal" onclick="activatePhase('primal')">
           <div class="phase-tab">
@@ -425,7 +568,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="phase-panel phase-emotional collapsed" id="panel-emotional" onclick="activatePhase('emotional')">
           <div class="phase-tab">
             <span class="tab-num">02</span>
@@ -469,7 +612,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="phase-panel phase-rational collapsed" id="panel-rational" onclick="activatePhase('rational')">
           <div class="phase-tab">
             <span class="tab-num">03</span>
@@ -502,27 +645,25 @@
       </div>
     </div>
   </div>
-
   <script>
     const letterToPhase = {
       'C': 'primal', 'V': 'primal',
       'N': 'emotional', 'E': 'emotional', 'T': 'emotional', 'S': 'emotional',
       'R': 'rational', 'O': 'rational'
     };
-
     let currentPhase = null;
     let highlightedLetter = null;
 
     function activateLetter(letter) {
       const phase = letterToPhase[letter];
-      
+
       document.querySelectorAll('.letter-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      
+
       document.querySelector(`[data-letter="${letter}"]`).classList.add('active');
       highlightedLetter = letter;
-      
+
       activatePhase(phase, letter);
     }
 
@@ -533,7 +674,7 @@
 
     function activatePhase(phase, fromLetter) {
       const phases = ['primal', 'emotional', 'rational'];
-      
+
       if (currentPhase === phase && !fromLetter) {
         phases.forEach(p => {
           document.getElementById('panel-' + p).classList.remove('expanded');
@@ -546,14 +687,14 @@
         highlightedLetter = null;
         return;
       }
-      
+
       currentPhase = phase;
-      
+
       phases.forEach(p => {
         const panel = document.getElementById('panel-' + p);
         const region = document.getElementById(p + '-region');
         const activation = document.getElementById(p + '-activation');
-        
+
         if (p === phase) {
           panel.classList.remove('collapsed');
           panel.classList.add('expanded');
@@ -566,7 +707,7 @@
           activation.classList.remove('visible', 'active');
         }
       });
-      
+
       if (!fromLetter) {
         document.querySelectorAll('.letter-btn').forEach(btn => {
           const btnPhase = letterToPhase[btn.dataset.letter];
@@ -577,7 +718,7 @@
           }
         });
       }
-      
+
       if (fromLetter) {
         setTimeout(() => {
           const triggerEl = document.getElementById('trigger-' + fromLetter);
